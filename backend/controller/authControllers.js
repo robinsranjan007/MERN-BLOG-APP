@@ -73,7 +73,7 @@ const loginUser = async (req, res) => {
 
     return res
       .status(201)
-      .cookie("token", {
+      .cookie("token",token, {
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
@@ -104,4 +104,20 @@ const logout = async (req, res) => {
   });
 };
 
-export { registerUser, loginUser, logout };
+
+const getMe = async (req, res) => {
+try {
+      const user = await User.findById(req.user.id).select('-password')
+    return res.status(200).json({
+        success: true,
+        user
+    })
+} catch (error) {
+   return res.status(500).json({
+            message: "Server Error",
+            success: false
+        })
+}
+}
+
+export { registerUser, loginUser, logout ,getMe};

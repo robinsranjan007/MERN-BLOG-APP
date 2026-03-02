@@ -12,7 +12,6 @@ const createCategory = async (req, res) => {
     }
 
     const category = await Category.create({ name });
-
     return res.status(200).json({
         success:true,
       category,
@@ -38,7 +37,7 @@ const getAllCategory = async (req, res) => {
     }
 
     return res.status(200).json({
-        sucess:true,
+        success:true,
       category
     });
   } catch (error) {
@@ -52,9 +51,9 @@ const getAllCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   try {
-    const { categoryId } = req.params;
+    const { id } = req.params;
 
-    const category = await Category.findByIdAndDelete({ categoryId });
+    const category = await Category.findByIdAndDelete( id );
     if (!category) {
       return res.status(400).json({
         message: "No category found",

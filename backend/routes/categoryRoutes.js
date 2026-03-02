@@ -5,8 +5,8 @@ import { createCategory, deleteCategory, getAllCategory } from '../controller/ca
 const router = express.Router()
 
 
-router.get('/',getAllCategory,authenticate,authorized)
-router.post('/',createCategory,authenticate,authorized)
-router.delete('/:id',deleteCategory,authenticate,authorized)
+router.get('/', getAllCategory)  // public, no middleware needed
+router.post('/', authenticate, authorized, createCategory)  // middleware first, then controller
+router.delete('/:id', authenticate, authorized, deleteCategory)
 
-export default router
+export default router 
